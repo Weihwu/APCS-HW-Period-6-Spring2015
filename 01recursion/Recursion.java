@@ -45,12 +45,4 @@ public class recursion{
 	    return g;
 	}
     }
-
-    public static void main(String[]args){
-	recursion a = new recursion();
-	System.out.println(a.name());
-	System.out.println(a.fact(10));
-	System.out.println(a.fib(20));
-	System.out.println(a.sqrt(133));
-    }
 }
