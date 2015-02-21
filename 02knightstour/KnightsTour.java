@@ -41,25 +41,19 @@ public class KnightsTour{
 	}
 	return hide + clear + go(0,0) + ans + "\n" + show;
     }
-    
+
     public KnightsTour(int size){
 	board = new int[size][size];
     }
-    
-    
-    
+  
     public boolean solve(){
 	return solve(0,0);
-    }
-    
+    }    
     
     public boolean solve(int startx, int starty){
 	return solve(startx,starty,1);
     }
-    
-    
-    
-    
+     
     public boolean solve(int x,int y,int currentMoveNumber){
 	//System.out.println(this);
 	//wait(20);
@@ -87,12 +81,12 @@ public class KnightsTour{
     }
 
     public static void main(String[]args){
-	KnightsTour a = new KnightsTour(Integer.parseInt(args[0]));
-	if (a.solve()){
-	    System.out.println(a);
-	}else{
-	    System.out.println("No Solution");
-	}
+    	KnightsTour a = new KnightsTour(Integer.parseInt(args[0]));
+   	if (a.solve()){
+    	    System.out.println(a);
+    	}else{
+    	    System.out.println("No Solution");
+   	}
     }
     
     public String name(){
