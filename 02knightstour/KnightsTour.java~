@@ -32,9 +32,9 @@ public class KnightsTour{
 	    for (int j = 0; j < board[i].length; j++){
 		int question = board[i][j];
 		if (question < 10){
-		    ans+= question + "  ";
+		    ans+= " " + question + " ";
 		}else{
-		    ans += " " + question;
+		    ans += question + " ";
 		}
 	    }
 	    ans += "\n";

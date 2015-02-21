@@ -39,7 +39,7 @@ public class KnightsTour{
 	    }
 	    ans += "\n";
 	}
-	return clear + hide + go(0,0) + ans + "\n" + show;
+	return hide + clear + go(0,0) + ans + "\n" + show;
     }
     
     public KnightsTour(int size){
