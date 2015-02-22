@@ -11,7 +11,7 @@ public class NQueens {
 	}
     }
     
-    public NQueen(int size){
+    public NQueens(int size){
 	board = new char[size][size];
 	for (int i = 0; i < board.length; i++){
 	    for (int j = 0; j < board[i].length; j++){
