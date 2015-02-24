@@ -1,4 +1,4 @@
-public class recursion{
+public class Recursion{
     
     public String name(){
 	return "Wu,Wei Hou";
