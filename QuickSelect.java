@@ -1,22 +1,27 @@
+import java.util.*;
+
 public class QuickSelect{
     
-    public static void partition(int[] ary, int si, int ei){
+    public static int partition(int[] ary, int si, int ei){
 	
 	int[] d = new int[ary.length];
 	
 	System.arraycopy(ary, 0, d, 0, si);
-	System.arraycopy(ary, ei+1, d, ei+1, ary.length-1-ei);
+	System.arraycopy(ary, ei, d, ei, ary.length-ei);
 
-	int pivot = ary[si];
-	int place = si+1;
+	Random r = new Random();
 
-	while(si < ei){
-	    if (ary[place] < pivot){
+	int index = (int)(Math.random()*(ei-si)+si);
+	int pivot = ary[index];
+	int place = si;
+
+	for (int x = ei-si; x > 0; x--){
+	    if(place != index && ary[place] < pivot){
 		d[si] = ary[place];
 		si++;
-	    }else{
-		d[ei] = ary[place];
+	    }else if(place != index && ary[place] >= pivot){
 		ei--;
+		d[ei] = ary[place];
 	    }
 	    place++;
 	}
@@ -24,7 +29,29 @@ public class QuickSelect{
 	d[si] = pivot;
 
 	System.arraycopy(d, 0, ary, 0, d.length);
+	return si;
     }
+
+    public static int quickselect(int[] ary, int n){
+	
+	int pivot;
+	int si = 0;
+	int ei = ary.length;
+       
+	n--;  
+
+	do{
+	    pivot = partition(ary, si, ei);
+	    if(pivot > n){
+		ei = pivot;
+	    }else if (pivot < n){
+		si = pivot+1;
+	    }
+	}while (pivot != n);
+
+	return ary[n];
+    }
+  
 	
     public static void main(String[] args){
 	
@@ -32,8 +59,12 @@ public class QuickSelect{
 
 	System.out.println(toString(a));
 
-	partition(a, 0, a.length-1);
+	System.out.println(quickselect(a,8));
 
+	System.out.println(toString(a));
+
+	Arrays.sort(a);
+	
 	System.out.println(toString(a));
     }
 	
