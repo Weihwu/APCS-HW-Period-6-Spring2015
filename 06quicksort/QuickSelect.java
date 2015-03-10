@@ -2,21 +2,24 @@ import java.util.*;
 
 public class QuickSelect{
     
-    public static int partition(int[] ary, int si, int ei, int r){
+    public static int partition(int[] ary, int si, int ei){
 	
 	int[] d = new int[ary.length];
 	
 	System.arraycopy(ary, 0, d, 0, si);
 	System.arraycopy(ary, ei, d, ei, ary.length-ei);
 
-	int pivot = ary[r];
+	Random r = new Random();
+
+	int index = (int)(Math.random()*(ei-si-1)+si);
+	int pivot = ary[index];
 	int place = si;
 
 	for (int x = ei-si; x > 0; x--){
-	    if(place != pivot && ary[place] < pivot){
+	    if(place != index && ary[place] < pivot){
 		d[si] = ary[place];
 		si++;
-	    }else if(place != pivot && ary[place] >= pivot){
+	    }else if(place != index && ary[place] >= pivot){
 		ei--;
 		d[ei] = ary[place];
 	    }
@@ -37,10 +40,8 @@ public class QuickSelect{
        
 	n--;  
 
-	Random r = new Random();
-
 	do{
-	    pivot = partition(ary, si, ei, (int)(Math.random()*(ei-si)+si));
+	    pivot = partition(ary, si, ei);
 	    if(pivot > n){
 		ei = pivot;
 	    }else if (pivot < n){
