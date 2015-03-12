@@ -23,7 +23,7 @@ public class LinkedList{
         return place.getData();
     }
 
-    public void add(int e){
+    public boolean add(int e){
         LNode place = entry;
 
         while (place.getNext() != null){
@@ -31,9 +31,10 @@ public class LinkedList{
 	}
 
         place.setNext(new LNode(e));
+	return true;
     }
 
-     public void add(int index, int value){
+     public boolean add(int index, int value){
 	 if (index < 0){
 	     throw new IndexOutOfBoundsException();
 	 }
@@ -51,13 +52,15 @@ public class LinkedList{
 
         a.setNext(place.getNext());
         place.setNext(a);
+
+	return true;
     }
 
-    public void remove(){
-	remove(0);
+    public Object remove(){
+	return remove(0);
     }
 
-    public void remove(int index){
+    public Object remove(int index){
 	 if (index < 0){
 	     throw new IndexOutOfBoundsException();
 	 }
@@ -71,7 +74,10 @@ public class LinkedList{
 	    }
         }
 
+	Object holder = place.getNext().getData();
         place.setNext(place.getNext().getNext());
+
+	return holder;
     }
 
     public int indexOf(int value){
@@ -87,7 +93,7 @@ public class LinkedList{
         return -1;
     }
 
-    public void set(int index, int e){
+    public Object set(int index, int e){
 	if (index < 0){
 	    throw new IndexOutOfBoundsException();
 	}
@@ -100,8 +106,10 @@ public class LinkedList{
 		throw new IndexOutOfBoundsException();
 	    }
 	}
-
+	
+	Object holder = place.getData();
         place.setData(e);
+	return holder;
     }
 
     public int size(){
@@ -159,8 +167,8 @@ public class LinkedList{
 
 	System.out.println(a.isEmpty());
 	
-	a.remove(0);
-	a.remove(0);
+	System.out.println(a.remove(0));
+	System.out.println(a.remove(0));
 
 	System.out.println(a.isEmpty());
 
