@@ -163,7 +163,5 @@ public class LinkedList{
 	a.remove(0);
 
 	System.out.println(a.isEmpty());
-
-	System.out.println(a.indexOf(0));
     }
 }

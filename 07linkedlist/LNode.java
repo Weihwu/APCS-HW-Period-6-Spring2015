@@ -9,20 +9,19 @@ public class LNode {
         data = e;
     }
 
-    public Object getData() {
-        return data;
-    }
-
-    public LNode getNext() {
-        return next;
-    }
-
     public void setData(Object e) {
         data = e;
+    }
+
+    public Object getData() {
+        return data;
     }
 
     public void setNext(LNode node) {
         next = node;
     }
 
+    public LNode getNext() {
+        return next;
+    }
 }
