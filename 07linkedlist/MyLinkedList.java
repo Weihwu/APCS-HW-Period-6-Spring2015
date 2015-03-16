@@ -3,18 +3,18 @@ import java.util.*;
 public class MyLinkedList{
 
     private int size;
-    private LNode entry;
-    private LNode end;
+    private LNode<T> entry;
+    private LNode<T> end;
 
     public MyLinkedList(){
     }
 
-    public boolean add(int e){
+    public boolean add(T e){
 	if(entry == null){
-	    entry = new LNode(e);
+	    entry = new LNode<T>(e);
 	    end = entry;
 	}else{
-	    end.setNext(new LNode(e));
+	    end.setNext(new LNode<T>(e));
 	    end = end.getNext();
 	}
 
@@ -22,8 +22,8 @@ public class MyLinkedList{
 	return true;
     }
 
-     public boolean add(int index, int e){
-	 LNode adjunct = new LNode(e);
+     public boolean add(int index, T e){
+	 LNode<T> adjunct = new LNode<T>(e);
 
 	 if (index < 0 || size < index){
 	     throw new IndexOutOfBoundsException();
@@ -33,7 +33,7 @@ public class MyLinkedList{
 	     adjunct.setNext(entry);
 	     entry = adjunct;
 	 }else{
-	     LNode place = entry;
+	     LNode<T> place = entry;
 
 	     for (int x = 0; x < index; x++) {
 		 place = place.getNext();
@@ -47,33 +47,33 @@ public class MyLinkedList{
 	 return true;
     }
 
-    public Object remove(){
+    public T remove(){
 	if (entry == null){
 	    throw new NoSuchElementException();
 	}
 	
-	Object holder = entry.getData();
+	T holder = entry.getData();
 	entry = entry.getNext();
 	
 	size--;
 	return holder;
     }
 
-    public Object remove(int index){
-	Object holder = new Object();
+    public T remove(int index){
+	T holder = new Object();
 
-	 if (index < 0 || size <= index){
-	     throw new IndexOutOfBoundsException();
-	 }else if(index == 0){
+	if (index < 0 || size <= index){
+	    throw new IndexOutOfBoundsException();
+	}else if(index == 0){
 	     return remove();
-	 }else{	        
-	     LNode place = entry;
-
+	}else{	        
+	     LNode<T> place = entry;
+	     
 	     for (int x = 1; x < index; x++){
 		 place = place.getNext();
 		 holder = place.getNext().getData();
 	     }
-
+	     
 	     if(place.getNext() == end){
 		 place.setNext(null);
 		 end = place;
@@ -86,8 +86,8 @@ public class MyLinkedList{
 	 return holder;
     }
 
-    public int indexOf(int e){
-        LNode place = entry;
+    public int indexOf(T e){
+        LNode<T> place = entry;
 	
         for (int x = 0; place != null; x++) {
             if (place.getData().equals(e)){
@@ -99,12 +99,12 @@ public class MyLinkedList{
         return -1;
     }
 
-    public Object get(int index){
+    public T get(int index){
 	if (index < 0 || size <= index){
 	    throw new IndexOutOfBoundsException();
 	}
 
-        LNode place = entry;
+        LNode<T> place = entry;
 
         for (int x = 0; x < index; x++){
 	    place = place.getNext();
@@ -113,24 +113,24 @@ public class MyLinkedList{
         return place.getData();
     }
 
-    public Object set(int index, int e){
+    public T set(int index, T e){
 	if (index < 0 || size <= index){
 	    throw new IndexOutOfBoundsException();
 	}
 
-        LNode place = entry;
+        LNode<T> place = entry;
 
         for (int x = 0; x < index; x++){
             place = place.getNext();
 	}
 	
-	Object holder = place.getData();
+	T holder = place.getData();
         place.setData(e);
 	return holder;
     }
 
     public int size(){
-        LNode place = entry.getNext();
+        LNode<T> place = entry.getNext();
         int count = 0;
 
         while (place != null){
@@ -145,7 +145,7 @@ public class MyLinkedList{
     }
 
     public String toString(){
-        LNode place = entry;
+        LNode<T> place = entry;
         String str = "[ ";
 
         while (place != null){
@@ -190,5 +190,9 @@ public class MyLinkedList{
 	System.out.println(a.isEmpty());
 
 	System.out.println(a.indexOf(0));
+    }
+
+    public String name(){
+	return "wu.weihou";
     }
 }

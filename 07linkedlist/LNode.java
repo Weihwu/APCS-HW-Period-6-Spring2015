@@ -1,27 +1,27 @@
-public class LNode {
+public class LNode<T>{
 
-    private Object data;
-    private LNode next;
+    private T data;
+    private LNode<T> next;
 
     public LNode() { }
 
-    public LNode(Object e) {
+    public LNode(T e) {
         data = e;
     }
 
-    public void setData(Object e) {
+    public void setData(T e){
         data = e;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setNext(LNode node) {
+    public void setNext(LNode<T> node) {
         next = node;
     }
 
-    public LNode getNext() {
+    public LNode<T> getNext() {
         return next;
     }
 }
