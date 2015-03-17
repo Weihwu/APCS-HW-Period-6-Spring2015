@@ -194,4 +194,33 @@ public class MyLinkedList<T>{
     public String name(){
 	return "wu.weihou";
     }
+
+    public class MyLinkedListIterator<T>{
+
+	LNode<T> interest;
+
+	public MyLinkedListIterator(){
+	}
+			    
+	public MyLinkedListIterator(LNode<T> node){
+	    interest = node;
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+
+	public boolean hasNext(){
+	    if (interest.getNext().getData() != null){
+		return true;
+	    }
+	}
+
+	public T next(){
+	    if (!(interest.hasNext())){
+		return null;
+	    }
+	    return interest.getNext().getData();
+	}
+    }
 }
