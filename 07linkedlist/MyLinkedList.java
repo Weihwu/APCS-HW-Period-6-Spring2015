@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyLinkedList{
+public class MyLinkedList<T>{
 
     private int size;
     private LNode<T> entry;
@@ -60,14 +60,13 @@ public class MyLinkedList{
     }
 
     public T remove(int index){
-	T holder = new Object();
-
 	if (index < 0 || size <= index){
 	    throw new IndexOutOfBoundsException();
 	}else if(index == 0){
 	     return remove();
 	}else{	        
 	     LNode<T> place = entry;
+	     T holder = place.getData();
 	     
 	     for (int x = 1; x < index; x++){
 		 place = place.getNext();
@@ -80,10 +79,10 @@ public class MyLinkedList{
 	     }else{
 		 place.setNext(place.getNext().getNext());
 	     }
-	 }
-	 
-	 size--;
-	 return holder;
+
+	     size--;
+	     return holder;
+	}
     }
 
     public int indexOf(T e){
@@ -141,7 +140,7 @@ public class MyLinkedList{
     }
 
     public boolean isEmpty(){
-        return size == 0;
+        return (size == 0);
     }
 
     public String toString(){
@@ -158,7 +157,7 @@ public class MyLinkedList{
     }
 
     public static void main(String[] args){
-	MyLinkedList a = new MyLinkedList();
+	MyLinkedList<Integer> a = new MyLinkedList<>();
 
 	System.out.println(a.isEmpty());
 
