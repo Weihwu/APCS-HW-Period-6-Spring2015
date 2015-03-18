@@ -167,6 +167,10 @@ public class MyLinkedList<T> implements Iterable<T>{
 
 	System.out.println(a.toString());
 
+	for (int x:a){
+	    System.out.println(x);
+	}
+
 	System.out.println(a.get(1));
 	
 	a.remove(2);
