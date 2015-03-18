@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyLinkedList<T>{
+public class MyLinkedList<T> implements Iterable<T>{
 
     private int size;
     private LNode<T> entry;
@@ -157,7 +157,7 @@ public class MyLinkedList<T>{
     }
 
     public static void main(String[] args){
-	MyLinkedList<Integer> a = new MyLinkedList<>();
+	MyLinkedList<Integer> a = new MyLinkedList<Integer>();
 
 	System.out.println(a.isEmpty());
 
@@ -195,14 +195,15 @@ public class MyLinkedList<T>{
 	return "wu.weihou";
     }
 
-    public class MyLinkedListIterator<T>{
+    public class MyLLIterator implements Iterator<T>{
 
 	LNode<T> interest;
 
-	public MyLinkedListIterator(){
+	public MyLLIterator(){
+	    interest = entry;
 	}
-			    
-	public MyLinkedListIterator(LNode<T> node){
+
+	public MyLLIterator(LNode<T> node){
 	    interest = node;
 	}
 
@@ -211,16 +212,21 @@ public class MyLinkedList<T>{
 	}
 
 	public boolean hasNext(){
-	    if (interest.getNext().getData() != null){
-		return true;
-	    }
+	    return interest != null;
 	}
 
 	public T next(){
-	    if (!(interest.hasNext())){
-		return null;
+	    if (hasNext()){
+		T holder = interest.getData();
+	        interest = interest.getNext();
+		return holder;
+	    }else{
+		throw new NoSuchElementException();
 	    }
-	    return interest.getNext().getData();
 	}
+    }
+
+    public Iterator<T> iterator(){
+	return new MyLLIterator();
     }
 }
