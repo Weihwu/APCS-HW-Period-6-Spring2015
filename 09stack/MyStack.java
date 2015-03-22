@@ -30,11 +30,27 @@ public class MyStack<T>{
 	LNode<T> interest = new LNode<T>(item);
 
 	if (top != null){
-	    interestt.setNext(top);
+	    interest.setNext(top);
 	}
 
 	top = interest;
 	return item;
+    }
+
+    public int search(Object o){
+	LNode<T> interest = top;
+
+	int place = 1;
+
+	while (interest != null){
+	    if (interest.getData().equals(o)){
+		return place;
+	    }
+	    place++;
+	    interest = interest.getNext();
+	}
+	
+	return -1;
     }
 
     public static void main(String[] args){
@@ -47,6 +63,7 @@ public class MyStack<T>{
 	out(a.push("second"));
 	out(a.peek());
 	out(a.empty());
+	out(a.search("first"));
     }
 
     public static void out(Object phrase){
