@@ -15,7 +15,7 @@ public class MyStack<T>{
 	out(a.empty());
     }
 
-    public static void out(Object phrase){
+    public static void out(String phrase){
 	System.out.println(phrase);
     }
 }
