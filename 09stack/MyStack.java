@@ -2,55 +2,41 @@ import java.util.*;
 
 public class MyStack<T>{
 
-    LNode<T> top;
+    MyLinkedList<T> pile;
+
+    public MyStack(){
+	pile = new MyLinkedList<T>();
+    }
 
     public boolean empty(){
-	return top == null;
+	return pile.isEmpty();
     }
     
     public T peek(){
-	if (top == null){
+	if (empty()){
 	    throw new EmptyStackException();
 	}
 
-	return top.getData();
+	return pile.get(0);
     }
 
     public T pop(){
-	if (top == null){
+	if (empty()){
 	    throw new EmptyStackException();
 	}
 
-	T holder = top.getData();
-	top = top.getNext();
-	return holder;
+	return pile.remove();
     }
 
     public T push(T item){
-	LNode<T> interest = new LNode<T>(item);
+	pile.add(0, item);
 
-	if (top != null){
-	    interest.setNext(top);
-	}
-
-	top = interest;
 	return item;
     }
 
     public int search(Object o){
-	LNode<T> interest = top;
-
-	int place = 1;
-
-	while (interest != null){
-	    if (interest.getData().equals(o)){
-		return place;
-	    }
-	    place++;
-	    interest = interest.getNext();
-	}
-	
-	return -1;
+	T e = (T)o;
+	return pile.indexOf(e);
     }
 
     public static void main(String[] args){
