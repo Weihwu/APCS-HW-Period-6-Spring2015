@@ -22,7 +22,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	return true;
     }
 
-     public boolean add(int index, T e){
+     public void add(int index, T e){
 	 LNode<T> adjunct = new LNode<T>(e);
 
 	 if (index < 0 || size < index){
@@ -32,6 +32,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	 }else if (index == 0){
 	     adjunct.setNext(entry);
 	     entry = adjunct;
+	     size++;
 	 }else{
 	     LNode<T> place = entry;
 
@@ -41,10 +42,8 @@ public class MyLinkedList<T> implements Iterable<T>{
 
 	     adjunct.setNext(place.getNext());
 	     place.setNext(adjunct);
+	     size++;
 	 }
-	 
-	 size++;
-	 return true;
     }
 
     public T remove(){
@@ -166,6 +165,10 @@ public class MyLinkedList<T> implements Iterable<T>{
 	a.add(13);
 
 	System.out.println(a.toString());
+
+	for (int x:a){
+	    System.out.println(x);
+	}
 
 	System.out.println(a.get(1));
 	
