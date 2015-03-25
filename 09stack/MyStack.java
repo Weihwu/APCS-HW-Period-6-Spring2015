@@ -34,8 +34,7 @@ public class MyStack<T>{
 	return item;
     }
 
-    public int search(Object o){
-	T e = (T)o;
+    public int search(T e){
 	return pile.indexOf(e);
     }
 
