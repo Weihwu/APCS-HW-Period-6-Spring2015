@@ -69,6 +69,19 @@ public class Maze{
 	catch (InterruptedException e) {
 	}
     }
+
+    private class Path{
+
+	MyDeque<Integer> loci;
+       
+	public void setCoor(int x, int y){
+	    loci.addLast(x);
+	    loci.addLast(y);
+	}
+
+    }
+	
+    private Path p;
  
     /**  
     public String toString(){
@@ -83,7 +96,8 @@ public class Maze{
     public boolean solveDFS(boolean animate){
     }
 
-    public int[] solutionCoordinates(){
+    public int[] solutionCoordinates(){	
     }
     */
+
 }
