@@ -6,6 +6,10 @@ public class Maze{
     private char[][] grid;
     private int maxx, maxy;
     private int startx, starty;
+
+    private static final String clear =  "\033[2J";
+    private static final String hide =  "\033[?25l";
+    private static final String show =  "\033[?25h";
     
     public Maze(String filename){
 	startx = -1;
@@ -39,4 +43,24 @@ public class Maze{
 	    }
 	}
     }
+
+    private String go(int x,int y){
+	return ("\033[" + x + ";" + y + "H");
+    }
+
+    public String toString(){
+    }
+
+    public String toString(boolean animate){
+    }
+
+    public boolean solveBFS(boolean animate){
+    }
+
+    public boolean solveDFS(boolean animate){
+    }
+
+    public int[] solutionCoordinates(){
+    }
+
 }
