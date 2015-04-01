@@ -47,7 +47,30 @@ public class Maze{
     private String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
-
+    private String clear(){
+	return "[2J";
+    }
+    private String hide(){
+	return "[?25l";
+    }
+    private String show(){
+	return "[?25h";
+    }
+    private String invert(){
+	return "[37";
+    }
+    public void clearTerminal(){
+	System.out.println(clear());
+    }
+    public void wait(int millis){
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
+ 
+    /**  
     public String toString(){
     }
 
@@ -62,5 +85,5 @@ public class Maze{
 
     public int[] solutionCoordinates(){
     }
-
+    */
 }
