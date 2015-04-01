@@ -73,10 +73,20 @@ public class Maze{
     private class Path{
 
 	MyDeque<Integer> loci;
+
+	public Path(){
+	}
+
        
 	public void setCoor(int x, int y){
 	    loci.addLast(x);
 	    loci.addLast(y);
+	}
+
+	public void removeCoor(){
+	    loci.removeFirst();
+	    loci.removeLast();
+
 	}
 
     }
