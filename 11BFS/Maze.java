@@ -87,8 +87,15 @@ public class Maze{
 
     private MyDeque<Path> Frontier;
 
-    /**  
     public String toString(){
+	String ans = ""+maxx+","+maxy+"\n";
+	for(int i=0;i<maxx*maxy;i++){
+	    if(i%maxx ==0 && i!=0){
+		ans+="\n";
+	    }
+	    ans += maze[i%maxx][i/maxx];
+	}
+	return hide()+invert()+go(0,0)+ans+"\n"+show();	
     }
 
     public String toString(boolean animate){
@@ -102,6 +109,5 @@ public class Maze{
 
     public int[] solutionCoordinates(){	
     }
-    */
 
 }
