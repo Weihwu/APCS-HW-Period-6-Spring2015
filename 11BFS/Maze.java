@@ -70,24 +70,22 @@ public class Maze{
 	}
     }
 
-    public class Frontier{
+    public class Path{
+	
+	int[] loci = new int[2];
 
-	MyDeque<Integer> path;
-
-	public Frontier(){
+	public Path(int x, int y){
+	    setCoor(x,y);
 	}
 
 	public void setCoor(int x, int y){
-	    path.addLast(x);
-	    path.addLast(y);
-	}
-
-	public void removeCoor(){
-	    path.removeFirst();
-	    path.removeFirst();
+	    loci[0] = x;   
+	    loci[1] = y;
 	}
 
     }
+
+    private MyDeque<Path> Frontier;
 
     /**  
     public String toString(){
