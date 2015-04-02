@@ -70,6 +70,25 @@ public class Maze{
 	}
     }
 
+    public class Frontier{
+
+	MyDeque<Integer> path;
+
+	public Frontier(){
+	}
+
+	public void setCoor(int x, int y){
+	    path.addLast(x);
+	    path.addLast(y);
+	}
+
+	public void removeCoor(){
+	    path.removeFirst();
+	    path.removeFirst();
+	}
+
+    }
+
     /**  
     public String toString(){
     }
