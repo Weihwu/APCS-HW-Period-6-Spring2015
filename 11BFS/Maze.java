@@ -185,6 +185,27 @@ public class Maze{
 	    thisx = place.getX();
 	    thisy = place.getY();
 	} 
+
+	MyDeque<Integer> solution = new MyDeque<Integer>();
+	
+	solution.addFirst(place.getY());
+	solution.addFirst(place.getX());
+	place = place.getLast();
+	
+	while (place.getLast() != null){
+	    solution.addFirst(place.getY());
+	    solution.addFirst(place.getX());
+	    place = place.getLast();
+	}
+
+	solution.addFirst(place.getY());
+	solution.addFirst(place.getX());
+
+	path = new int[solution.size()];
+	for (int x = 0; solution.size() > 0; x++){
+	    path[x] = solution.removeFirst();
+	}
+
 	return true;
     }
 
@@ -212,4 +233,10 @@ public class Maze{
 	}
     }
  
+    public static void main(String[] args){
+	Maze a = new Maze("data1.dat");
+	System.out.println(a);
+	System.out.println();
+	System.out.println(a.solveDFS());
+    }
 }

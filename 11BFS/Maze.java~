@@ -44,6 +44,7 @@ public class Maze{
 	}
     }
 
+    //Background
     private String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
@@ -59,6 +60,9 @@ public class Maze{
     private String invert(){
 	return "[37";
     }
+    private String color(int foreground,int background){
+        return ("\033[0;" + foreground + ";" + background + "m");
+    }
     public void clearTerminal(){
 	System.out.println(clear());
     }
@@ -70,44 +74,158 @@ public class Maze{
 	}
     }
 
-    public class Path{
+    public class Loci{
+
+	private int x;
+	private int y;
 	
-	int[] loci = new int[2];
-
-	public Path(int x, int y){
-	    setCoor(x,y);
+	private Loci last;
+	
+	public Loci(int x, int y, Loci last){
+	    this.x = x;
+	    this.y = y;
+	    this.last = last;
 	}
 
-	public void setCoor(int x, int y){
-	    loci[0] = x;   
-	    loci[1] = y;
+	public int getX(){
+	    return x;
+	}
+	public int getY(){
+	    return y;
+	}
+	public Loci getLast(){
+	    return last;
 	}
 
     }
 
-    private MyDeque<Path> Frontier;
+    private MyDeque<Loci> frontier;
+    private int[] path;
 
-    public String toString(){
-	String ans = ""+maxx+","+maxy+"\n";
-	for(int i=0;i<maxx*maxy;i++){
-	    if(i%maxx ==0 && i!=0){
-		ans+="\n";
-	    }
-	    ans += maze[i%maxx][i/maxx];
-	}
-	return hide()+invert()+go(0,0)+ans+"\n"+show();	
-    }
-
-    public String toString(boolean animate){
+    //BFS
+    public boolean solveBFS(){
+	return solveBFS(false);
     }
 
     public boolean solveBFS(boolean animate){
+	return solve('B', animate);
+    }
+
+    //DFS
+    public boolean solveDFS(){
+	return solveDFS(false);
     }
 
     public boolean solveDFS(boolean animate){
+	return solve('D', animate);
+    }
+
+    //Solve
+
+    private boolean solve(char type, boolean animate){
+	int thisx;
+	int thisy;
+
+	thisx = startx;
+	thisy = starty;
+	
+	Loci place = new Loci(thisx, thisy, null);
+
+
+	while (grid[thisy][thisx] != 'E'){
+	    
+	    if (animate){
+		System.out.println(toString(true));
+		wait(20);
+	    }
+
+	    if (grid[thisy][thisx] != 'S'){
+		grid[thisy][thisx] = 'x';
+	    }
+
+	    //Checking Clockwise
+	    if (grid[thisy-1][thisx] != ' '){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx, thisy-1, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx, thisy-1, place));
+		}
+	    }
+
+	    if (grid[thisy][thisx+1] != ' '){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx+1, thisy, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx+1, thisy, place));
+		}
+	    }
+
+	    if (grid[thisy+1][thisx] == ' '){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx, thisy+1, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx, thisy+1, place));
+		}
+	    }
+
+	    if (grid[thisy][thisx-1] == ' '){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx-1, thisy, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx-1, thisy, place));
+		}
+	    }
+
+	    if (frontier.getFirst() == null){
+		grid[thisy][thisx] = '*';
+		return false;
+	    }
+
+	    place = frontier.removeFirst();
+	    thisx = place.getX();
+	    thisy = place.getY();
+	} 
+
+	MyDeque<Integer> solution = new MyDeque<Integer>();
+	
+	solution.addFirst(place.getY());
+	solution.addFirst(place.getX());
+	place = place.getLast();
+	
+	while (place.getLast() != null){
+	    solution.addFirsT(place.getY());
+	    solution.addFirst(place.getX());
+	    place = place.getLast();
+	}
+
+	solution.addFirst(place.getY());
+	solution.addFirst(place.getX());
+
+	return true;
     }
 
     public int[] solutionCoordinates(){	
+	return path;
     }
 
+    public String toString(){
+	String ans = "";
+	for (int i = 0; i < grid.length; i++){
+	    for (int j = 0; j < grid[i].length; j++){
+		ans += grid[i][j];
+
+	    }
+	    ans += "\n";
+	}
+	return ans;
+    }
+
+    public String toString(boolean animate){
+	if (!animate){
+	    return toString();
+	}else{
+	    return hide + go(0,0) + toString() + "\n" + show + color(37,40);
+	}
+    }
+ 
 }

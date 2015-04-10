@@ -102,12 +102,6 @@ public class MyDeque<T>{
     }
 
     public int size(){
-	int length = 0;
-	for (int x = 0; x < ary.length-1; x++){
-	    if (ary[x] != null){
-		length++;
-	    }
-	}
-	return length;
+	return ary.length;
     }
 }
