@@ -59,6 +59,9 @@ public class Maze{
     private String invert(){
 	return "[37";
     }
+    private String color(int foreground,int background){
+        return ("\033[0;" + foreground + ";" + background + "m");
+    }
     public void clearTerminal(){
 	System.out.println(clear());
     }
@@ -70,22 +73,32 @@ public class Maze{
 	}
     }
 
-    public class Path{
-	
-	int[] loci = new int[2];
+    public class Loci{
 
-	public Path(int x, int y){
-	    setCoor(x,y);
+	private int x;
+	private int y;
+	
+	private Loci last;
+	
+	public Loci(int x, int y, Loci last){
+	    this.x = x;
+	    this.y = y;
+	    this.last = last;
 	}
 
-	public void setCoor(int x, int y){
-	    loci[0] = x;   
-	    loci[1] = y;
+	public int getX(){
+	    return x;
+	}
+	public int getY(){
+	    return y;
+	}
+	public Loci getLast(){
+	    return last;
 	}
 
     }
 
-    private MyDeque<Path> Frontier;
+    private MyDeque<Loci> Frontier;
 
     public String toString(){
 	String ans = ""+maxx+","+maxy+"\n";
@@ -93,12 +106,12 @@ public class Maze{
 	    if(i%maxx ==0 && i!=0){
 		ans+="\n";
 	    }
-	    ans += maze[i%maxx][i/maxx];
+	    ans += grid[i%maxx][i/maxx];
 	}
 	return hide()+invert()+go(0,0)+ans+"\n"+show();	
     }
 
-    public String toString(boolean animate){
+    /**   public String toString(boolean animate){
     }
 
     public boolean solveBFS(boolean animate){
@@ -109,5 +122,5 @@ public class Maze{
 
     public int[] solutionCoordinates(){	
     }
-
+    */
 }
