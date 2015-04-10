@@ -144,7 +144,7 @@ public class Maze{
 	    }
 
 	    //Checking Clockwise
-	    if (grid[thisy-1][thisx] != '#' && grid[thisy-1][thisx] != 'x'){
+	    if (grid[thisy-1][thisx] != ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy-1, place));
 		}else{
@@ -152,7 +152,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy][thisx+1] != '#' && grid[thisy][thisx+1] != 'x'){
+	    if (grid[thisy][thisx+1] != ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx+1, thisy, place));
 		}else{
@@ -160,7 +160,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy+1][thisx] != '#' && grid[thisy+1][thisx] != 'x'){
+	    if (grid[thisy+1][thisx] == ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy+1, place));
 		}else{
@@ -168,13 +168,22 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy][thisx-1] != '#' && grid[thisy][thisx-1] != 'x'){
+	    if (grid[thisy][thisx-1] == ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx-1, thisy, place));
 		}else{
 		    frontier.addFirst(new Loci(thisx-1, thisy, place));
 		}
 	    }
+
+	    if (frontier.getFirst() == null){
+		grid[thisy][thisx] = '*';
+		return false;
+	    }
+
+	    place = frontier.removeFirst();
+	    thisx = place.getX();
+	    thisy = place.getY();
 	} 
 	return true;
     }
