@@ -44,6 +44,7 @@ public class Maze{
 	}
     }
 
+    //Background
     private String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
@@ -99,6 +100,35 @@ public class Maze{
     }
 
     private MyDeque<Loci> Frontier;
+    private int[] path;
+
+    //BFS
+    public boolean solveBFS(){
+	return solveBFS(false);
+    }
+
+    public boolean solveBFS(boolean animate){
+	return solve("BFS", animate);
+    }
+
+    //DFS
+    public boolean solveDFS(){
+	return solveDFS(false);
+    }
+
+    public boolean solveDFS(boolean animate){
+	return solve("DFS", animate);
+    }
+
+    //Solve
+
+    private boolean solve(String type, boolean animate){
+	return true;
+    }
+
+    public int[] solutionCoordinates(){	
+	return path;
+    }
 
     public String toString(){
 	String ans = ""+maxx+","+maxy+"\n";
@@ -111,16 +141,8 @@ public class Maze{
 	return hide()+invert()+go(0,0)+ans+"\n"+show();	
     }
 
-    /**   public String toString(boolean animate){
+    public String toString(boolean animate){
+	return "";
     }
-
-    public boolean solveBFS(boolean animate){
-    }
-
-    public boolean solveDFS(boolean animate){
-    }
-
-    public int[] solutionCoordinates(){	
-    }
-    */
+ 
 }
