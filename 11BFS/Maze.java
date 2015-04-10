@@ -99,7 +99,7 @@ public class Maze{
 
     }
 
-    private MyDeque<Loci> Frontier;
+    private MyDeque<Loci> frontier;
     private int[] path;
 
     //BFS
@@ -108,7 +108,7 @@ public class Maze{
     }
 
     public boolean solveBFS(boolean animate){
-	return solve("BFS", animate);
+	return solve('B', animate);
     }
 
     //DFS
@@ -117,12 +117,65 @@ public class Maze{
     }
 
     public boolean solveDFS(boolean animate){
-	return solve("DFS", animate);
+	return solve('D', animate);
     }
 
     //Solve
 
-    private boolean solve(String type, boolean animate){
+    private boolean solve(char type, boolean animate){
+	int thisx;
+	int thisy;
+
+	thisx = startx;
+	thisy = starty;
+	
+	Loci place = new Loci(thisx, thisy, null);
+
+
+	while (grid[thisy][thisx] != 'E'){
+	    
+	    if (animate){
+		System.out.println(toString(true));
+		wait(20);
+	    }
+
+	    if (grid[thisy][thisx] != 'S'){
+		grid[thisy][thisx] = 'x';
+	    }
+
+	    //Checking Clockwise
+	    if (grid[thisy-1][thisx] != '#' && grid[thisy-1][thisx] != 'x'){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx, thisy-1, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx, thisy-1, place));
+		}
+	    }
+
+	    if (grid[thisy][thisx+1] != '#' && grid[thisy][thisx+1] != 'x'){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx+1, thisy, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx+1, thisy, place));
+		}
+	    }
+
+	    if (grid[thisy+1][thisx] != '#' && grid[thisy+1][thisx] != 'x'){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx, thisy+1, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx, thisy+1, place));
+		}
+	    }
+
+	    if (grid[thisy][thisx-1] != '#' && grid[thisy][thisx-1] != 'x'){
+		if (type == 'B'){
+		    frontier.addLast(new Loci(thisx-1, thisy, place));
+		}else{
+		    frontier.addFirst(new Loci(thisx-1, thisy, place));
+		}
+	    }
+	} 
 	return true;
     }
 
@@ -131,18 +184,23 @@ public class Maze{
     }
 
     public String toString(){
-	String ans = ""+maxx+","+maxy+"\n";
-	for(int i=0;i<maxx*maxy;i++){
-	    if(i%maxx ==0 && i!=0){
-		ans+="\n";
+	String ans = "";
+	for (int i = 0; i < grid.length; i++){
+	    for (int j = 0; j < grid[i].length; j++){
+		ans += grid[i][j];
+
 	    }
-	    ans += grid[i%maxx][i/maxx];
+	    ans += "\n";
 	}
-	return hide()+invert()+go(0,0)+ans+"\n"+show();	
+	return ans;
     }
 
     public String toString(boolean animate){
-	return "";
+	if (!animate){
+	    return toString();
+	}else{
+	    return hide + go(0,0) + toString() + "\n" + show + color(37,40);
+	}
     }
  
 }
