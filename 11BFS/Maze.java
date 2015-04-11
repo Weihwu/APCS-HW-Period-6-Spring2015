@@ -149,7 +149,7 @@ public class Maze{
 	    }
 
 	    //Checking Clockwise
-	    if (grid[thisy-1][thisx] == ' '){
+	    if (grid[thisy-1][thisx] == ' ' || grid[thisy-1][thisx] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy-1, place));
 		}else{
@@ -157,7 +157,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy][thisx+1] == ' '){
+	    if (grid[thisy][thisx+1] == ' ' || grid[thisy][thisx+1] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx+1, thisy, place));
 		}else{
@@ -165,7 +165,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy+1][thisx] == ' '){
+	    if (grid[thisy+1][thisx] == ' ' || grid[thisy+1][thisx] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy+1, place));
 		}else{
@@ -173,7 +173,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy][thisx-1] == ' '){
+	    if (grid[thisy][thisx-1] == ' ' || grid[thisy][thisx] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx-1, thisy, place));
 		}else{
@@ -198,12 +198,23 @@ public class Maze{
 	} 
 
 	MyDeque<Integer> solution = new MyDeque<Integer>();
+
+	for (int i = 0; i < maxy; i++){
+	    for (int j = 0; j < maxx; j++){
+		if (grid[i][j] == 'x'){
+		    grid[i][j] = ' ';
+		}
+	    }
+	}
 	
 	solution.addFirst(place.getY());
 	solution.addFirst(place.getX());
 	place = place.getLast();
 	
 	while (place.getLast() != null){
+	    if (grid[place.getY()][place.getX()] != 'S'){
+		grid[place.getY()][place.getX()] = 'x';
+	    }
 	    solution.addFirst(place.getY());
 	    solution.addFirst(place.getX());
 	    place = place.getLast();
