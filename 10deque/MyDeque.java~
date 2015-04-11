@@ -86,7 +86,7 @@ public class MyDeque<T>{
 	    System.arraycopy(ary, 0, newAry, ary.length/2, ary.length);
 	}else{
 	    System.arraycopy(ary, head, newAry, ary.length/2, ary.length-head);
-	    System.arraycopy(ary, 0, newAry, ary.length*(3/2)-head, head);
+	    System.arraycopy(ary, 0, newAry, ary.length*3/2-head, head);
 	}
 	head = ary.length/2;
 	tail = head + ary.length-1;

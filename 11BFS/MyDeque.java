@@ -46,7 +46,7 @@ public class MyDeque<T>{
 	ary[head] = null;
 	if(head >= ary.length-1){
 	    head = 0;
-	}else{
+	}else if (head != tail){
 	    head++;
 	}
 	return holder;
@@ -60,7 +60,7 @@ public class MyDeque<T>{
 	ary[tail] = null;
 	if (tail == 0){
 	    tail = ary.length-1;
-	}else{
+	}else if (head != tail){
 	    tail--;
 	}
 	return holder;

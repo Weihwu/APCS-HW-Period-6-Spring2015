@@ -7,13 +7,21 @@ public class Maze{
     private int maxx, maxy;
     private int startx, starty;
 
+    private MyDeque<Loci> frontier;
+    private int[] path;
+
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
     private static final String show =  "\033[?25h";
     
     public Maze(String filename){
+
+	frontier = new MyDeque<Loci>();
+	path = new int[0];
+
 	startx = -1;
 	starty = -1;
+
 	String ans ="";
 	try{
 
@@ -33,11 +41,11 @@ public class Maze{
 	    System.exit(0);
 	}
 
-	grid = new char[maxx][maxy];
+	grid = new char[maxy][maxx];
 	for (int i = 0; i < ans.length(); i++){
 	    char c = ans.charAt(i);
-	    grid[i%maxx][i/maxx] = c;
-	    if (c == '5'){
+	    grid[i/maxx][i%maxx] = c;
+	    if (c == 'S'){
 		startx = i%maxx;
 		starty = i/maxx;
 	    }
@@ -99,9 +107,6 @@ public class Maze{
 
     }
 
-    private MyDeque<Loci> frontier;
-    private int[] path;
-
     //BFS
     public boolean solveBFS(){
 	return solveBFS(false);
@@ -144,7 +149,7 @@ public class Maze{
 	    }
 
 	    //Checking Clockwise
-	    if (grid[thisy-1][thisx] != ' '){
+	    if (grid[thisy-1][thisx] == ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy-1, place));
 		}else{
@@ -152,7 +157,7 @@ public class Maze{
 		}
 	    }
 
-	    if (grid[thisy][thisx+1] != ' '){
+	    if (grid[thisy][thisx+1] == ' '){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx+1, thisy, place));
 		}else{
@@ -238,5 +243,7 @@ public class Maze{
 	System.out.println(a);
 	System.out.println();
 	System.out.println(a.solveDFS());
+	System.out.println();
+	System.out.println(a);
     }
 }
