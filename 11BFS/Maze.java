@@ -180,12 +180,18 @@ public class Maze{
 		    frontier.addFirst(new Loci(thisx-1, thisy, place));
 		}
 	    }
-
-	    if (frontier.getFirst() == null){
-		grid[thisy][thisx] = '*';
+	    
+	    if (frontier.size() == 0){
+		for (int i = 0; i < maxy; i++){
+		    for (int j = 0; j < maxx; j++){
+			if (grid[i][j] == 'x'){
+			    grid[i][j] = ' ';
+			}
+		    }
+		}
 		return false;
 	    }
-
+	    
 	    place = frontier.removeFirst();
 	    thisx = place.getX();
 	    thisy = place.getY();
