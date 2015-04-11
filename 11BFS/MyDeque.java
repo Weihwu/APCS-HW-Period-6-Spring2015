@@ -103,7 +103,7 @@ public class MyDeque<T>{
 
     public int size(){
 	int length = 0;
-	for (int x = 0; x < ary.length-1; x++){
+	for (int x = 0; x < ary.length; x++){
 	    if (ary[x] != null){
 		length++;
 	    }

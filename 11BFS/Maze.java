@@ -262,5 +262,12 @@ public class Maze{
 	System.out.println(a.solveDFS());
 	System.out.println();
 	System.out.println(a);
+
+	Maze b = new Maze("data3.dat");
+	System.out.println(b);
+	System.out.println();
+	System.out.println(b.solveBFS());
+	System.out.println();
+	System.out.println(b);
     }
 }
