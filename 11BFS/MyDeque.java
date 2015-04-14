@@ -3,6 +3,7 @@ import java.util.*;
 public class MyDeque<T>{
 
     Object[] ary;
+    int[] priority;
     int head;
     int tail;
 
@@ -11,6 +12,21 @@ public class MyDeque<T>{
 	head = ary.length/2;
 	tail = head;
     }
+
+    public void add(T value, int e){
+	if ((head == 0 && tail == ary.length-1) || (head == tail+1)){
+	    resize();
+	}
+	if (ary[head] != null){
+	    head--;
+	    if (head < 0){
+		head = ary.length-1;
+	    }
+	}
+	ary[head] = value;
+	priority[head] = e;
+    }
+      
 
     public void addFirst(T value){
 	if ((head == 0 && tail == ary.length-1) || (head == tail+1)){
@@ -82,16 +98,21 @@ public class MyDeque<T>{
 
     private void resize(){
 	Object[] newAry = new Object[ary.length*2];
+	int[] newP = new int[priority.length*2];
+
 	if (tail > head){
 	    System.arraycopy(ary, 0, newAry, ary.length/2, ary.length);
+	    System.arraycopy(priority, 0, newP, priority.length/2, priority.length);
 	}else{
 	    System.arraycopy(ary, head, newAry, ary.length/2, ary.length-head);
 	    System.arraycopy(ary, 0, newAry, ary.length*3/2-head, head);
+	    System.arraycopy(priority, head, newP, priority.length/2, priority.length-head);
+	    System.arraycopy(priority, 0, newP, priority.length*3/2-head, head);
 	}
 	head = ary.length/2;
 	tail = head + ary.length-1;
 	ary = newAry;
-	
+	priority = newP;
     }
     public String toString(){
 	return Arrays.toString(ary);
