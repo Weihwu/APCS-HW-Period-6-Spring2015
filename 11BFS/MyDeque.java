@@ -9,6 +9,7 @@ public class MyDeque<T>{
 
     public MyDeque(){
 	ary = new Object[10];
+	priority = new int[10];
 	head = ary.length/2;
 	tail = head;
     }
@@ -115,7 +116,7 @@ public class MyDeque<T>{
 	priority = newP;
     }
     public String toString(){
-	return Arrays.toString(ary);
+	return Arrays.toString(ary) + "\n" + Arrays.toString(priority);
     }
 
     public static void out(Object phrase){
@@ -130,5 +131,14 @@ public class MyDeque<T>{
 	    }
 	}
 	return length;
+    }
+
+    public static void main(String[] args){
+	MyDeque<String> a = new MyDeque<String>();
+	
+	a.add("Hi", 5);
+	a.add("Bye",10);
+
+	out(a);
     }
 }
