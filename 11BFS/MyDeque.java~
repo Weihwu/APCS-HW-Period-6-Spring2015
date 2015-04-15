@@ -3,13 +3,32 @@ import java.util.*;
 public class MyDeque<T>{
 
     Object[] ary;
+    int[] priority;
     int head;
     int tail;
 
     public MyDeque(){
 	ary = new Object[10];
+	priority = new int[10];
 	head = ary.length/2;
 	tail = head;
+    }
+
+    public void add(T value, int e){
+	addLast(value);
+	priority[tail] = e;
+    }
+      
+    public T findSmallest(){
+	int min = priority[head];
+	int place = head;
+	for (int x = 0; x < priority.length; x++){
+	    if (min > priority[x] && priority[x] != 0){
+		min = priority[x];
+		place = x;
+	    }
+	}
+	return ary[place];
     }
 
     public void addFirst(T value){
@@ -82,19 +101,24 @@ public class MyDeque<T>{
 
     private void resize(){
 	Object[] newAry = new Object[ary.length*2];
+	int[] newP = new int[priority.length*2];
+
 	if (tail > head){
 	    System.arraycopy(ary, 0, newAry, ary.length/2, ary.length);
+	    System.arraycopy(priority, 0, newP, priority.length/2, priority.length);
 	}else{
 	    System.arraycopy(ary, head, newAry, ary.length/2, ary.length-head);
 	    System.arraycopy(ary, 0, newAry, ary.length*3/2-head, head);
+	    System.arraycopy(priority, head, newP, priority.length/2, priority.length-head);
+	    System.arraycopy(priority, 0, newP, priority.length*3/2-head, head);
 	}
 	head = ary.length/2;
 	tail = head + ary.length-1;
 	ary = newAry;
-	
+	priority = newP;
     }
     public String toString(){
-	return Arrays.toString(ary);
+	return Arrays.toString(ary) + "\n" + Arrays.toString(priority);
     }
 
     public static void out(Object phrase){
@@ -103,11 +127,21 @@ public class MyDeque<T>{
 
     public int size(){
 	int length = 0;
-	for (int x = 0; x < ary.length-1; x++){
+	for (int x = 0; x < ary.length; x++){
 	    if (ary[x] != null){
 		length++;
 	    }
 	}
 	return length;
+    }
+
+    public static void main(String[] args){
+	MyDeque<String> a = new MyDeque<String>();
+	
+	a.add("Hi", 5);
+	a.add("Bye",10);
+
+	out(a);
+	out(a.findSmallest());
     }
 }

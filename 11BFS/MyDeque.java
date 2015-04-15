@@ -15,19 +15,21 @@ public class MyDeque<T>{
     }
 
     public void add(T value, int e){
-	if ((head == 0 && tail == ary.length-1) || (head == tail+1)){
-	    resize();
-	}
-	if (ary[head] != null){
-	    head--;
-	    if (head < 0){
-		head = ary.length-1;
-	    }
-	}
-	ary[head] = value;
-	priority[head] = e;
+	addLast(value);
+	priority[tail] = e;
     }
       
+    public T findSmallest(){
+	int min = priority[head];
+	int place = head;
+	for (int x = 0; x < priority.length; x++){
+	    if (min > priority[x] && priority[x] != 0){
+		min = priority[x];
+		place = x;
+	    }
+	}
+	return (T)ary[place];
+    }
 
     public void addFirst(T value){
 	if ((head == 0 && tail == ary.length-1) || (head == tail+1)){
@@ -140,5 +142,6 @@ public class MyDeque<T>{
 	a.add("Bye",10);
 
 	out(a);
+	out(a.findSmallest());
     }
 }
