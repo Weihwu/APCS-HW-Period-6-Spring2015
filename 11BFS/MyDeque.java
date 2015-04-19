@@ -19,17 +19,43 @@ public class MyDeque<T>{
 	priority[tail] = e;
     }
       
-    public T findSmallest(){
+    private int findSmallest(){
 	int min = priority[head];
+	int minP = head;
 	int place = head;
-	for (int x = 0; x < priority.length; x++){
-	    if (min > priority[x] && priority[x] != 0){
-		min = priority[x];
-		place = x;
+
+	while (place != tail){
+	    place++;
+	    if (place >= priority.length){
+		place = 0;
+	    }
+	    if (priority[place] < min){
+		min = priority[place];
+		minP = place;
 	    }
 	}
-	return (T)ary[place];
+	return minP;
     }
+	
+    public T removeSmallest(){
+	if (ary[head] == null){
+	    throw new NoSuchElementException();
+	}
+
+	int minP = findSmallest();
+	
+	T holder = (T)ary[minP];
+	ary[minP] = ary[head];
+	priority[minP] = priority[head];
+	ary[head] = null;
+	priority[head] = 0;
+	if (head != tail){
+	    head = (head + 1) % ary.length;
+	}
+	
+	return holder;
+    }
+	
 
     public void addFirst(T value){
 	if ((head == 0 && tail == ary.length-1) || (head == tail+1)){
@@ -139,9 +165,11 @@ public class MyDeque<T>{
 	MyDeque<String> a = new MyDeque<String>();
 	
 	a.add("Hi", 5);
-	a.add("Bye",10);
+	a.add("Bye", 10);
+	a.add("Yep", 3);
 
 	out(a);
-	out(a.findSmallest());
+	out(a.removeSmallest());
+	out(a);
     }
 }

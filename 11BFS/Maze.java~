@@ -111,7 +111,6 @@ public class Maze{
     public boolean solveBFS(){
 	return solveBFS(false);
     }
-
     public boolean solveBFS(boolean animate){
 	return solve('B', animate);
     }
@@ -120,9 +119,24 @@ public class Maze{
     public boolean solveDFS(){
 	return solveDFS(false);
     }
-
     public boolean solveDFS(boolean animate){
 	return solve('D', animate);
+    }
+
+    //Best First Search
+    public boolean solveBest(){
+	return solveBest(false);
+    }
+    public boolean solveBest(boolean animate){
+	return solve('F', animate);
+    }
+
+    //AStar
+    public boolean solveAStar(){
+	return solveAStar(false);
+    }
+    public boolean solveAStar(boolean animate){
+	return solve('A', animate);
     }
 
     //Solve
@@ -148,53 +162,58 @@ public class Maze{
 		grid[thisy][thisx] = 'x';
 	    }
 
-	    //Checking Clockwise
-	    if (grid[thisy-1][thisx] == ' ' || grid[thisy-1][thisx] == 'E'){
-		if (type == 'B'){
-		    frontier.addLast(new Loci(thisx, thisy-1, place));
-		}else{
-		    frontier.addFirst(new Loci(thisx, thisy-1, place));
-		}
-	    }
-
-	    if (grid[thisy][thisx+1] == ' ' || grid[thisy][thisx+1] == 'E'){
-		if (type == 'B'){
-		    frontier.addLast(new Loci(thisx+1, thisy, place));
-		}else{
-		    frontier.addFirst(new Loci(thisx+1, thisy, place));
-		}
-	    }
-
-	    if (grid[thisy+1][thisx] == ' ' || grid[thisy+1][thisx] == 'E'){
-		if (type == 'B'){
-		    frontier.addLast(new Loci(thisx, thisy+1, place));
-		}else{
-		    frontier.addFirst(new Loci(thisx, thisy+1, place));
-		}
-	    }
-
-	    if (grid[thisy][thisx-1] == ' ' || grid[thisy][thisx] == 'E'){
-		if (type == 'B'){
-		    frontier.addLast(new Loci(thisx-1, thisy, place));
-		}else{
-		    frontier.addFirst(new Loci(thisx-1, thisy, place));
-		}
-	    }
-	    
-	    if (frontier.size() == 0){
-		for (int i = 0; i < maxy; i++){
-		    for (int j = 0; j < maxx; j++){
-			if (grid[i][j] == 'x'){
-			    grid[i][j] = ' ';
-			}
+	    if (type == 'B' || type == 'D'){
+		
+		//Checking Clockwise
+		if (grid[thisy-1][thisx] == ' ' || grid[thisy-1][thisx] == 'E'){
+		    if (type == 'B'){
+			frontier.addLast(new Loci(thisx, thisy-1, place));
+		    }else{
+			frontier.addFirst(new Loci(thisx, thisy-1, place));
 		    }
 		}
-		return false;
+		
+		if (grid[thisy][thisx+1] == ' ' || grid[thisy][thisx+1] == 'E'){
+		    if (type == 'B'){
+			frontier.addLast(new Loci(thisx+1, thisy, place));
+		    }else{
+			frontier.addFirst(new Loci(thisx+1, thisy, place));
+		    }
+		}
+		
+		if (grid[thisy+1][thisx] == ' ' || grid[thisy+1][thisx] == 'E'){
+		    if (type == 'B'){
+			frontier.addLast(new Loci(thisx, thisy+1, place));
+		    }else{
+			frontier.addFirst(new Loci(thisx, thisy+1, place));
+		    }
+		}
+		
+		if (grid[thisy][thisx-1] == ' ' || grid[thisy][thisx] == 'E'){
+		    if (type == 'B'){
+			frontier.addLast(new Loci(thisx-1, thisy, place));
+		    }else{
+			frontier.addFirst(new Loci(thisx-1, thisy, place));
+		    }
+		}
+		
+		if (frontier.size() == 0){
+		    for (int i = 0; i < maxy; i++){
+			for (int j = 0; j < maxx; j++){
+			    if (grid[i][j] == 'x'){
+				grid[i][j] = ' ';
+			    }
+			}
+		    }
+		    return false;
+		}
+		
+		place = frontier.removeFirst();
+		thisx = place.getX();
+		thisy = place.getY();
+	    }else if (type == 'F'){
+	    }else{
 	    }
-	    
-	    place = frontier.removeFirst();
-	    thisx = place.getX();
-	    thisy = place.getY();
 	} 
 
 	MyDeque<Integer> solution = new MyDeque<Integer>();
@@ -259,7 +278,7 @@ public class Maze{
 	Maze a = new Maze("data1.dat");
 	System.out.println(a);
 	System.out.println();
-	System.out.println(a.solveDFS(true));
+	System.out.println(a.solveDFS());
 	System.out.println();
 	System.out.println(a);
 	System.out.println(Arrays.toString(a.solutionCoordinates()));
