@@ -6,6 +6,7 @@ public class Maze{
     private char[][] grid;
     private int maxx, maxy;
     private int startx, starty;
+    private int endx, endy;
 
     private MyDeque<Loci> frontier;
     private int[] path;
@@ -49,6 +50,10 @@ public class Maze{
 		startx = i%maxx;
 		starty = i/maxx;
 	    }
+	    if (c == 'E'){
+		endx = i%maxx;
+		endy = i%maxy;
+	    }
 	}
     }
 
@@ -90,6 +95,12 @@ public class Maze{
 	
 	private Loci last;
 	
+	public Loci(int x, int y, Loci last){
+	    this.x = x;
+	    this.y = y;
+	    this.last = last;
+	}
+
 	public Loci(int x, int y, Loci last, int count){
 	    this.x = x;
 	    this.y = y;
@@ -155,49 +166,64 @@ public class Maze{
 	thisy = starty;
 	
 	Loci place = new Loci(thisx, thisy, null);
+
+	while (grid[thisy][thisx] != 'E'){
 	
-	if (animate){
-	    System.out.println(toString(true));
-	    wait(20);
-	}
-	
-	if (grid[thisy][thisx] != 'S'){
-	    grid[thisy][thisx] = 'x';
-	}
-	
-	if (type == 'B' || type == 'D'){
+	    if (animate){
+		System.out.println(toString(true));
+		wait(20);
+	    }
+	    
+	    if (grid[thisy][thisx] != 'S'){
+		grid[thisy][thisx] = 'x';
+	    }
 	    
 	    //Checking Clockwise
 	    if (grid[thisy-1][thisx] == ' ' || grid[thisy-1][thisx] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy-1, place));
-		}else if (type = 'D'){
+		}else if (type == 'D'){
 		    frontier.addFirst(new Loci(thisx, thisy-1, place));
-		}else if (type = 'F'){
+		}else if (type == 'F'){
+		    frontier.add(new Loci(thisx, thisy-1, place), Math.abs(endx-thisx) + Math.abs(endy - (thisy-1)));
+		}else{
+		    frontier.add(new Loci(thisx, thisy-1, place), Math.abs(endx-thisx) + Math.abs(endy - (thisy-1)) + count+1);
 		}
 	    }
 	    
 	    if (grid[thisy][thisx+1] == ' ' || grid[thisy][thisx+1] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx+1, thisy, place));
-		}else if (type = 'D'){
+		}else if (type == 'D'){
 		    frontier.addFirst(new Loci(thisx+1, thisy, place));
+		}else if (type == 'F'){
+		    frontier.add(new Loci(thisx+1, thisy, place), Math.abs(endx-(thisx+1)) + Math.abs(endy - thisy));
+		}else{
+		    frontier.add(new Loci(thisx+1, thisy, place), Math.abs(endx-(thisx+1)) + Math.abs(endy - thisy) + count+1);
 		}
 	    }
 	    
 	    if (grid[thisy+1][thisx] == ' ' || grid[thisy+1][thisx] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx, thisy+1, place));
-		}else if (type = 'D'){
+		}else if (type == 'D'){
 		    frontier.addFirst(new Loci(thisx, thisy+1, place));
+		}else if (type == 'F'){
+		    frontier.add(new Loci(thisx, thisy+1, place), Math.abs(endx-thisx) + Math.abs(endy - (thisy+1)));
+		}else{
+		    frontier.add(new Loci(thisx, thisy+1, place), Math.abs(endx-thisx) + Math.abs(endy - (thisy+1)) + count+1);
 		}
 	    }
 	    
-	    if (grid[thisy][thisx-1] == ' ' || grid[thisy][thisx] == 'E'){
+	    if (grid[thisy][thisx-1] == ' ' || grid[thisy][thisx-1] == 'E'){
 		if (type == 'B'){
 		    frontier.addLast(new Loci(thisx-1, thisy, place));
-		}else if (type = 'D'){
+		}else if (type == 'D'){
 		    frontier.addFirst(new Loci(thisx-1, thisy, place));
+		}else if (type == 'F'){
+		    frontier.add(new Loci(thisx-1, thisy, place), Math.abs(endx-(thisx-1)) + Math.abs(endy - thisy));
+		}else{
+		    frontier.add(new Loci(thisx-1, thisy, place), Math.abs(endx-(thisx-1)) + Math.abs(endy - thisy) + count+1);
 		}
 	    }
 	    
@@ -211,10 +237,25 @@ public class Maze{
 		}
 		return false;
 	    }
-	    
-	    place = frontier.removeFirst();
+
+	    if (type == 'F' || type == 'A'){
+		place = frontier.removeSmallest();
+		while (grid[place.getY()][place.getX()] == 'x'){
+		    place = frontier.removeSmallest();
+		}
+	    }else{
+	        place = frontier.removeFirst();
+		while (grid[place.getY()][place.getX()] == 'x'){
+		    place = frontier.removeFirst();
+		}
+	    }
+
 	    thisx = place.getX();
 	    thisy = place.getY();
+	    
+	    if (type == 'A'){
+		count = place.getCount();
+	    }
 	} 
 
 	MyDeque<Integer> solution = new MyDeque<Integer>();
@@ -292,8 +333,20 @@ public class Maze{
 	System.out.println(b);
 	System.out.println(Arrays.toString(b.solutionCoordinates()));
 
-	Maze c = new Maze("data2.dat");
-	System.out.println(c.solveDFS());
+	Maze c = new Maze("data1.dat");
+	System.out.println(c);
+	System.out.println();
+	System.out.println(c.solveAStar());
+	System.out.println();
+	System.out.println(c);
 	System.out.println(Arrays.toString(c.solutionCoordinates()));
+
+	Maze d = new Maze("data1.dat");
+	System.out.println(d);
+	System.out.println();
+	System.out.println(d.solveBest());
+	System.out.println();
+	System.out.println(d);
+	System.out.println(Arrays.toString(d.solutionCoordinates()));
     }
 }
