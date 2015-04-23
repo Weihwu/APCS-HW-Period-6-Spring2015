@@ -31,6 +31,7 @@ public class BTree<E>{
     }
 
     public void preOrder(TreeNode<E> curr){
+	
     }
 
     public void inOrder(TreeNode<E> curr){
