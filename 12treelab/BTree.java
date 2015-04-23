@@ -13,10 +13,10 @@ public class BTree<E>{
 	root = null;
     }
 
-    private void add(E d){
+    public void add(E d){
     }
 
-    public void add(TreeNode<E> curr, TreeNode<E> bn){
+    private void add(TreeNode<E> curr, TreeNode<E> bn){
     }
 
     public void traverse(int mode){
@@ -39,10 +39,34 @@ public class BTree<E>{
     public void postOrder(TreeNode<E> curr){
     }
 
+    public int getHeight(){
+	return getHeight(root);
+    }
+
     private int getHeight(TreeNode<E> curr){
     }
     
-    public int getHeight(){
-	return getHeight(root);
+    private String getLevel(TreeNode<E> curr, int level, int currLevel){
+    }
+
+    public String toString(){
+    }
+
+    public static void main(String[] args){
+	
+	BTree<Integer> t = new BTree<Integer>();
+	
+	for (int i = 0; i < 8; i++){
+	    t.add(i);
+	    System.out.println("Pre_Order:");
+	    t.traverse(PRE_ORDER);
+	    System.out.println("In-Order:");
+	    t.traverse(IN_ORDER);
+	    System.out.println("Post-Order:");
+	    t.traverse(POST_ORDER);
+	    System.out.println("Height: " + t.getHeight());
+
+	    System.out.println(t);
+	}
     }
 }
