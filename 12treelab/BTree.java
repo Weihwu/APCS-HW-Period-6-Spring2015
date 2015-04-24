@@ -9,14 +9,33 @@ public class BTree<E>{
 
     private TreeNode<E> root;
 
+    Random r = new Random();
+
     public BTree(){
 	root = null;
     }
 
     public void add(E d){
+	TreeNode<E> node = new TreeNode(d);
+	add(root, node);
     }
 
-    private void add(TreeNode<E> curr, TreeNode<E> bn){
+    private void add(TreeNode<E> curr, TreeNode<E> bn){\
+	if (curr == null){
+	    curr = bn;
+	}else{
+	    if (curr.getLeft() == null && curr.getRight() == null){
+		if (r.nextInt(2) == 0){
+		    curr.setLeft(bn);
+		}else{
+		    curr.setRight(bn);
+		}
+	    }else if (getLeft() == null){
+		curr.setLeft(bn);
+	    }else{
+		curr.setRight(bn);
+	    }
+	}
     }
 
     public void traverse(int mode){

@@ -1,12 +1,8 @@
-import java.util.*;
-
 public class TreeNode<E>{
     
     private E data;
-    private TreeNode<E> sib1;
-    private TreeNode<E> sib2;
-    
-    Random r = new Random();
+    private TreeNode<E> left;
+    private TreeNode<E> right;
 
     public TreeNode(){
     }
@@ -23,18 +19,20 @@ public class TreeNode<E>{
 	return data;
     }
 
-    public void setSib(TreeNode<E> node){
-	if (sib1 == null && sib2 == null){
-	    if (r.nextInt(2) == 0){
-		sib1 = node;
-	    }else{
-		sib2 = node;
-	    }
-	    
-	}else if (sib1 == null){
-	    sib1 = node;
-	}else{
-	    sib2 = node;
-	}
+    public void setLeft(TreeNode<E> value){
+	left = value;
     }
+    
+    public E getLeft(){
+	return left;
+    }
+
+    public void setRight(TreeNode<E> value){
+	right = value;
+    }
+
+    public E getRight(TreeNode<E> value){
+	return right;
+    }
+
 }
