@@ -35,4 +35,10 @@ public class TreeNode<E>{
 	return right;
     }
 
+    public boolean hasChild(){
+	if (getLeft() != null || getRight() != null){
+	    return true;
+	}
+	return false;
+    }
 }

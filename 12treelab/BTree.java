@@ -50,7 +50,23 @@ public class BTree<E>{
     }
 
     public void preOrder(TreeNode<E> curr){
-	
+	String ans = "";
+    }
+
+    private String preOrder(TreeNode<E> curr){
+	String ans = "";
+	if (!curr.hasChild(){
+	    ans += curr.getData() + ",";
+	    }else{
+		ans += curr.getData() + ",";
+		if (curr.getLeft().hasChild() == true){
+		    ans += preOrder(curr.getLeft());
+		}
+		if (curr.getRight().hasChild() == true){
+		    ans += preOrder(curr.getRight());
+		}
+	    }
+	    return ans;
     }
 
     public void inOrder(TreeNode<E> curr){
