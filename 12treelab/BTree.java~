@@ -28,7 +28,7 @@ public class BTree<E>{
 
     private void add(TreeNode<E> curr, TreeNode<E> bn){
 	if (curr == null){
-	    curr = bn;
+	    curr.setData(bn);
 	}else{
 	    if (curr.getLeft() == null && curr.getRight() == null){
 		if (r.nextInt(2) == 0){
@@ -36,7 +36,7 @@ public class BTree<E>{
 		}else{
 		    curr.setRight(bn);
 		}
-	    }else if (getLeft() == null){
+	    }else if (curr.getLeft() == null){
 		add(curr.getLeft(), bn);
 	    }else{
 		add(curr.getRight(), bn);
@@ -93,7 +93,7 @@ public class BTree<E>{
 	if (curr.getLeft() == null && curr.getRight() == null){
 	    return 1;
 	}
-
+	
 	int left;
 	int right;
 
@@ -101,40 +101,54 @@ public class BTree<E>{
 	    left = 0;
 	}else{
 	    left = getHeight(curr.getLeft());
+	}
 	if (curr.getRight() == null){
 	    right = 0;
 	}else{
 	    right = getHeight(curr.getRight());
 	}
-
-	if (left <= right)
-	    return 1 + right;
+    
+	if (left <= right){
+		return 1 + right;
 	}else{
 	    return 1 + left;
 	}
     }
     
     private String getLevel(TreeNode<E> curr, int level, int currLevel){
+	if (curr == null){
+	    return "";
+	}
+	if (level == currLevel){
+	    return curr.getData() + " ";
+	}
+	
+	return getLevel(curr.getLeft(), level, currLevel+1) + getLevel(curr.getRight(), level, currLevel+1);
     }
-
+    
     public String toString(){
+	String ans = "";
+	for (int x = 1; x <= getHeight(); x++){
+	    ans += getLevel(root, x, 1) + "\n";
+	}
+	return ans;
     }
-
+    
     public static void main(String[] args){
 	
 	BTree<Integer> t = new BTree<Integer>();
 	
 	for (int i = 0; i < 8; i++){
 	    t.add(i);
-	    System.out.println("Pre_Order:");
-	    t.traverse(PRE_ORDER);
-	    System.out.println("In-Order:");
-	    t.traverse(IN_ORDER);
-	    System.out.println("Post-Order:");
-	    t.traverse(POST_ORDER);
-	    System.out.println("Height: " + t.getHeight());
-
-	    System.out.println(t);
 	}
+	System.out.println("Pre_Order:");
+	t.traverse(PRE_ORDER);
+	System.out.println("In-Order:");
+	t.traverse(IN_ORDER);
+	System.out.println("Post-Order:");
+	t.traverse(POST_ORDER);
+	System.out.println("Height: " + t.getHeight());
+	
+	System.out.println(t);
     }
 }

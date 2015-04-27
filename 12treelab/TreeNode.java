@@ -11,7 +11,7 @@ public class TreeNode<E>{
 	data = value;
     }
 
-    public TreeNode(E value, TreeNode<E> valuel, Treenode<T> valuer){
+    public TreeNode(E value, TreeNode<E> valuel, TreeNode<E> valuer){
 	data = value;
 	left = valuel;
 	right = valuer;
@@ -29,7 +29,7 @@ public class TreeNode<E>{
 	left = value;
     }
     
-    public E getLeft(){
+    public TreeNode<E> getLeft(){
 	return left;
     }
 
@@ -37,7 +37,7 @@ public class TreeNode<E>{
 	right = value;
     }
 
-    public E getRight(TreeNode<E> value){
+    public TreeNode<E> getRight(){
 	return right;
     }
 }
