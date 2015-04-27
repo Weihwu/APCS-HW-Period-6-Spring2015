@@ -107,7 +107,7 @@ public class BTree<E>{
 	    right = getHeight(curr.getRight());
 	}
 
-	if (left <= right){
+	if (left <= right)
 	    return 1 + right;
 	}else{
 	    return 1 + left;

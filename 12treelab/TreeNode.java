@@ -10,6 +10,12 @@ public class TreeNode<E>{
     public TreeNode(E value){
 	data = value;
     }
+
+    public TreeNode(E value, TreeNode<E> valuel, Treenode<T> valuer){
+	data = value;
+	left = valuel;
+	right = valuer;
+    }
     
     public void setData(E value){
 	data = value;
@@ -33,12 +39,5 @@ public class TreeNode<E>{
 
     public E getRight(TreeNode<E> value){
 	return right;
-    }
-
-    public boolean hasChild(){
-	if (getLeft() != null || getRight() != null){
-	    return true;
-	}
-	return false;
     }
 }
