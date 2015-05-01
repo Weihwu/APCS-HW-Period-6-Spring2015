@@ -18,7 +18,7 @@ public class BSTreeNode<T extends Comparable> {
     public BSTreeNode<T> getLeft(){
 	return left;
     }
-    public BSTreeNode<T> getRighT(){
+    public BSTreeNode<T> getRight(){
 	return right;
     }
 
