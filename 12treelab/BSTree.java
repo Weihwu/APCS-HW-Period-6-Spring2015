@@ -22,7 +22,15 @@ public class BSTree<T extends Comparable>{
     }
 
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t){
-	return null;
+	if (curr == null){
+	    return t;
+	}
+	if (curr.compareTo(t) < 0){
+	    curr.setRight(add(curr.getRight(), t));
+	}else{
+	    curr.setLeft(add(curr.getLeft(), t));
+	}
+	return curr;
     }
 
     public void remove(T c){
@@ -30,7 +38,11 @@ public class BSTree<T extends Comparable>{
     }
 
     private BSTreeNode<T> remove(BSTreeNode<T> curr, T c){
-	return null;
+	if (curr.compareTo(c) < 0){
+	    curr.setRight(remove(curr.getRight(), c));
+	}else if (curr.compareTo(c) > 0){
+	    curr.setLeft(remove(curr.getLeft(), c));
+	}
     }
 
     public void inOrder(){
