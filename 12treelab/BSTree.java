@@ -4,9 +4,16 @@ import java.util.*;
 public class BSTree<T extends Comparable>{
     
     private BSTreeNode<T> root;
+    private Random r;
     
     public BSTree(){
 	root = null;
+	r = new Random();
+    }
+    
+    public BSTree(long seed){
+	root = null;
+	r = new Random(seed);
     }
 
     public boolean isEmpty(){
@@ -38,12 +45,41 @@ public class BSTree<T extends Comparable>{
     }
 
     private BSTreeNode<T> remove(BSTreeNode<T> curr, T c){
+	if (curr == null){
+	    return null;
+	}
 	if (curr.getData().compareTo(c) < 0){
 	    curr.setRight(remove(curr.getRight(), c));
 	}else if (curr.getData().compareTo(c) > 0){
 	    curr.setLeft(remove(curr.getLeft(), c));
 	}
-	return null;
+
+	if (isLeaf(curr)){
+	    return null;
+	}else if (curr.getRight() == null){
+	    return curr.getLeft();
+	}else if (curr.getLeft() == null){
+	    return curr.getRight();
+	}else{
+	    BSTreeNode<T> holder;
+	    if (r.nextInt(2) == 0){
+		holder = curr.getRight();
+		while (holder.getLeft() != null){
+		    holder = holder.getLeft();
+		}
+		curr.setData(holder.getData());
+		curr.setRight(remove(curr.getRight(), holder.getData()));
+	    }else{
+		holder = curr.getLeft();
+		while (holder.getRight() != null){
+		    holder = holder.getRight();
+		}
+		curr.setData(holder.getData());
+		curr.setLeft(remove(curr.getLeft(), holder.getData()));
+	    }
+	}
+	
+	return curr;
     }
 
     public void inOrder(){
@@ -67,6 +103,8 @@ public class BSTree<T extends Comparable>{
 	a.add(20);
 	a.add(3);
 	a.add(6);
+	System.out.println(a);
+	a.remove(5);
 	System.out.println(a);
     }
 
