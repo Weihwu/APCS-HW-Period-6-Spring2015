@@ -54,13 +54,15 @@ public class BSTree<T extends Comparable>{
 	    curr.setLeft(remove(curr.getLeft(), c));
 	}
 
-	if (isLeaf(curr)){
+	else if (isLeaf(curr)){
 	    return null;
 	}else if (curr.getRight() == null){
 	    return curr.getLeft();
 	}else if (curr.getLeft() == null){
 	    return curr.getRight();
-	}else{
+	}
+
+	else{
 	    BSTreeNode<T> holder;
 	    if (r.nextInt(2) == 0){
 		holder = curr.getRight();
@@ -72,7 +74,7 @@ public class BSTree<T extends Comparable>{
 	    }else{
 		holder = curr.getLeft();
 		while (holder.getRight() != null){
-		    holder = holder.getRight():
+		    holder = holder.getRight();
 		}
 		curr.setData(holder.getData());
 		curr.setLeft(remove(curr.getLeft(), holder.getData()));
