@@ -1,0 +1,20 @@
+public class MyHeap{
+    
+    public MyHeap(){
+    }
+
+    public MyHeap(boolean isMax){
+    }
+
+    public String toString(){
+    }
+
+    public int remove(){
+    }
+
+    public void add(int e){
+    }
+
+    public int peek(){
+    }
+}
