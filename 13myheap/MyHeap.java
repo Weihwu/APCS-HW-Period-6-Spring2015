@@ -1,13 +1,16 @@
 public class MyHeap{
 
-    private boolean isMax;
     private ArrayList<Integer> heap = new ArrayList<Integer>();
+    private boolean isMax;
+    private boolean hasRoot;
 
     public MyHeap(){
-	MyHeap(true);
+	hasRoot = false;
+	isMax = true;
     }
 
-    public MyHeap(boolean isMax){	       
+    public MyHeap(boolean isMax){
+	this();
 	this.isMax = isMax;
     }
 
@@ -31,7 +34,10 @@ public class MyHeap{
 
     //For Add
     public void add(int e){
-	if (isMax == true){
+	if (!hasRoot){
+	    heap.set(1, e);
+	    hasRoot = true;
+	}else if (isMax == true){
 	    addMax(int e);
 	}else{
 	    addMin(int e);
@@ -39,11 +45,24 @@ public class MyHeap{
     }
 
     private addMax(int e){
+	int place = heap.size() + 1;
+	while (place != 1 && e > heap.get(place/2)){
+	    heap.set(place, heap.get(place/2));
+	    place /= 2;
+	}
+	heap.set(place, e);
     }
     
     private addMin(int e){
+	int place = heap.size() + 1;
+	while (place != 1 && e < heap.get(place/2)){
+	    heap.set(place, heap.get(place/2));
+	    place /= 2;
+	}
+	heap.set(place, e);
     }
 
     public int peek(){
+	return heap.get(1);
     }
 }
