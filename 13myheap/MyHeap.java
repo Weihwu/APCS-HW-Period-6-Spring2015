@@ -20,34 +20,51 @@ public class MyHeap{
 
     //For Remove
     public int remove(){
-	int root = heap.get(1);
+	int root = heap.get(0);
 
-	int place = 1;
-	while (heap.get(place) != 0 && place <= heap.size() && place*2+1 < heap.size()){
-	    if (isMax){
-		if (heap.get(place*2) > heap.get(place*2+1)){
-		    heap.set(place, heap.get(place*2));
-		    place = place*2;
-		}else{
-		    heap.set(place, heap.get(place*2+1));
-		    place = place*2+1;
-		}
-	    }else{
-		if (heap.get(place*2) < heap.get(place*2+1)){
-		    heap.set(place, heap.get(place*2));
-		    place = place*2;
-		}else{
-		    heap.set(place, heap.get(place*2+1));
-		    place = place*2+1;
-		}
-	    }
-	}
-	
-	for (int x = place/2; x <= heap.size()+1; x++){
-	    heap.set(x, heap.get(x+1));
+	if (heap.size() == 0){
+	    removeMax();
+	}else{
+	    removeMin();
 	}
 
 	return root;
+    }
+
+    private void removeMax(){
+	int place = 0;
+	int newPlace;
+
+	while (place*2+1 < heap.size()){
+	    if (heap.size() == place*2+2){
+		newPlace = place*2+1;
+	    }else if (heap.get(place*2+1) > heap.get(place*2+2)){
+		newPlace = place*2+1;
+	    }else{
+		newPlace = place*2+2;
+	    }
+	    heap.set(place, heap.get(newPlace));
+	    place = newPlace;
+	}
+	heap.remove(place);
+    }
+
+    private void removeMin(){
+	int place = 0;
+	int newPlace;
+
+	while (place*2+1 < heap.size()){
+	    if (heap.size() == place*2+2){
+		newPlace = place*2+1;
+	    }else if (heap.get(place*2+1) < heap.get(place*2+2)){
+		newPlace = place*2+1;
+	    }else{
+		newPlace = place*2+2;
+	    }
+	    heap.set(place, heap.get(newPlace));
+	    place = newPlace;
+	}
+	heap.remove(place);
     }
 
     //For Add
