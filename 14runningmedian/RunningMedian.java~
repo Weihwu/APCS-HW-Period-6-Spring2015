@@ -1,0 +1,14 @@
+public class RunningMedian(){
+
+    private MyHeap minHeap = new MyHeap(false);
+    private MyHeap maxHeap = new MyHeap();
+    
+    public double getMedian(){
+	if (minHeap.size() == maxHeap.size()){
+	    minHeap.
+    }
+
+    public void add(double e){
+    }
+
+}
