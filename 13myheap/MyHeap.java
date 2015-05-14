@@ -4,10 +4,8 @@ public class MyHeap{
 
     private ArrayList<Integer> heap = new ArrayList<Integer>();
     private boolean isMax;
-    private boolean hasRoot;
 
     public MyHeap(){
-	hasRoot = false;
 	isMax = true;
     }
 
@@ -54,9 +52,8 @@ public class MyHeap{
 
     //For Add
     public void add(int e){
-	if (!hasRoot){
-	    heap.set(1, e);
-	    hasRoot = true;
+	if (heap.size() == 0){
+	    heap.add(e);
 	}else if (isMax){
 	    addMax(e);
 	}else{
@@ -65,25 +62,27 @@ public class MyHeap{
     }
 
     private void addMax(int e){
-	int place = heap.size() + 1;
-	while (place != 1 && e > heap.get(place/2)){
-	    heap.set(place, heap.get(place/2));
-	    place /= 2;
+	int place = heap.size();
+	heap.add(e);
+	while (place != 0 && e > heap.get((place-1)/2)){
+	    heap.set(place, heap.get((place-1)/2));
+	    place = (place-1)/2;
 	}
 	heap.set(place, e);
     }
     
     private void addMin(int e){
-	int place = heap.size() + 1;
-	while (place != 1 && e < heap.get(place/2)){
-	    heap.set(place, heap.get(place/2));
-	    place /= 2;
+	int place = heap.size();
+	heap.add(e);
+	while (place != 0 && e < heap.get((place-1)/2)){
+	    heap.set(place, heap.get((place-1)/2));
+	    place = (place-1)/2;
 	}
 	heap.set(place, e);
     }
 
     public int peek(){
-	return heap.get(1);
+	return heap.get(0);
     }
 
     public static void main(String[] args){
