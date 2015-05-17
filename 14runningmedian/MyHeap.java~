@@ -101,8 +101,4 @@ public class MyHeap{
     public int peek(){
 	return heap.get(0);
     }
-
-    public int size(){
-	return heap.size();
-    }
 }

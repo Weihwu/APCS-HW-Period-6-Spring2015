@@ -1,14 +1,77 @@
-public class RunningMedian(){
+public class RunningMedian{
 
     private MyHeap minHeap = new MyHeap(false);
     private MyHeap maxHeap = new MyHeap();
-    
+
+    private int counter = 0;
+
     public double getMedian(){
-	if (minHeap.size() == maxHeap.size()){
-	    minHeap.
+	if ((minHeap.size()+maxHeap.size())%2 ==0){
+	    return (minHeap.peek()*1.0 + maxHeap.peek())/2;
+	}else if (minHeap.size() > maxHeap.size()){
+	    return minHeap.peek();
+	}else{
+	    return maxHeap.peek();
+	}
     }
 
-    public void add(double e){
+    public void add(int e){
+	if (counter == 0){
+	    maxHeap.add(e);
+	    counter++;
+	}else{
+	    if  ((minHeap.size()+maxHeap.size())%2 == 0){
+		if (e < getMedian()){
+		    maxHeap.add(e);
+		}else{
+		    minHeap.add(e);
+		}
+	    }
+	    else{
+		if (e < getMedian()){
+		    if (minHeap.size() < maxHeap.size()){
+			int temp = maxHeap.peek();
+			maxHeap.remove();
+			minHeap.add(temp);
+			maxHeap.add(e);
+		    }else{
+			maxHeap.add(e);
+		    }
+		}else{
+		    if (minHeap.size() > maxHeap.size()){
+			int temp = minHeap.peek();
+			minHeap.remove();
+			maxHeap.add(temp);
+			minHeap.add(e);
+		    }else{
+			minHeap.add(e);
+		    }
+		}
+	    }
+	}
     }
 
+    public static void main(String[] args){
+	
+	RunningMedian a = new RunningMedian();
+
+	a.add(3);
+	System.out.println(a.minHeap.toString());
+	System.out.println(a.maxHeap.toString());
+	System.out.println(a.getMedian());
+	a.add(10);
+	System.out.println(a.minHeap.toString());
+	System.out.println(a.maxHeap.toString());
+	System.out.println(a.getMedian());
+	a.add(23);
+	System.out.println(a.minHeap.toString());
+	System.out.println(a.maxHeap.toString());
+	System.out.println(a.getMedian());
+	a.add(2);
+	System.out.println(a.minHeap.toString());
+	System.out.println(a.maxHeap.toString());
+	System.out.println(a.getMedian());
+	a.add(5);
+	System.out.println(a.getMedian());
+    }
 }
